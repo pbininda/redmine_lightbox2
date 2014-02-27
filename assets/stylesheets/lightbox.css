@@ -11,7 +11,7 @@ div.thumbnails img {
   max-width: 150px;
 }
 
-a.pdf img, a.swf img {
+a.pdf img, a.swf img, a.msg img {
   margin: 0 4px;
   width: 18px;
 }
@@ -23,13 +23,13 @@ a.pdf img, a.swf img {
 
 /* move prev/next buttons outside
  * fixes issue #5
- * 
+ *
  * source:
  * - http://fancyapps.com/fancybox/#useful
  * - http://jsfiddle.net/Xh3B2/
  */
 .fancybox-nav {
-    width: 70px;       
+    width: 70px;
 }
 .fancybox-nav span {
     visibility: visible;

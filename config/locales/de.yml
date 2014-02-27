@@ -1,0 +1,7 @@
+# German strings go here for Rails i18n
+en:
+  label_date: "Datum"
+  label_from: "Absender"
+  label_to: "Empfänger"
+  label_attachments: "Angehängte Dateien"
+  error_loading: "Datei ist keine .msg-Datei"
