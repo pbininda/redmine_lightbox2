@@ -1,0 +1,11 @@
+<link href="/stylesheets/scm.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css">
+<h2><%=h @attachment.filename %></h2>
+
+<div class="attachments">
+<p><%= h("#{@attachment.description} - ") unless @attachment.description.blank? %>
+   <span class="author"><%= @attachment.author %>, <%= format_time(@attachment.created_on) %></span></p>
+
+</div>
+&nbsp;
+<%= render :partial => 'common/file', :locals => {:content => @content, :filename => @attachment.filename} %>

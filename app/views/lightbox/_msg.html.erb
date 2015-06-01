@@ -1,0 +1,37 @@
+<table border="0" width="100%">
+	<tr>
+		<td colspan="2"><h2><%= lookup_property(@msg, "SUBJECT") %></h2></td>
+	</tr>
+	<tr>
+		<td width="150" align="right"><b><%= l(:label_date) %></b></td>
+		<td><%= format_time(lookup_property(@msg, "CREATION_TIME")) %></td>
+	</tr>
+	<tr>
+		<td width="150" align="right"><b><%= l(:label_from) %></b></td>
+		<td><%=lookup_property(@msg, "SENDER") %></td>
+	</tr>
+	<tr>
+		<td width="150" align="right"><b><%= l(:label_to) %></b></td>
+		<td><%= @msg.properties[0x0E04] %></td>
+	</tr>
+
+	<% if @msg.attachments.any? %>
+		<tr>
+			<td width="150" align="right"><b><%= l(:label_attachments) %></b></td>
+			<td>
+				<% for attachment in @msg.attachments %>
+					<div padding-right="5px">
+						<%= link_to attachment.filename, {:controller => 'lightbox', :action => 'download_file_from_msg', :filename => attachment.filename, :id => @id } %> 
+					</div>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+	
+	<tr>
+		<td colspan="2">
+			<hr />
+			<%= @msg.properties.body.gsub!("\n", "<br>").html_safe %>
+		</td>
+	</tr>
+</table>

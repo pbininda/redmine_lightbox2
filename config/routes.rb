@@ -8,5 +8,7 @@ else
   #Redmine 2.x
   RedmineApp::Application.routes.draw do
     get 'attachments/download_inline/:id/:filename', :controller => 'attachments', :action => 'download_inline', :id => /\d+/, :filename => /.*/
+    get 'lightbox/download_inline/:id', :controller => 'lightbox', :action => 'download_inline'
+    get 'lightbox/download_file_from_msg/:id', :controller => 'lightbox', :action => 'download_file_from_msg'
   end
 end
