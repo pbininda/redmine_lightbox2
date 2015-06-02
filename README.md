@@ -1,7 +1,7 @@
 Redmine Lightbox 2
 ==================
 
-This plugin lets you preview image, pdf and swf attachments in a lightbox.
+This plugin lets you preview image, pdf, swf and msg attachments in a lightbox.
 
 This is a fork of zipme's [redmine_lightbox](https://github.com/zipme/redmine_lightbox) plugin.
 
