@@ -4,7 +4,7 @@ require_dependency 'patches/attachments_patch'
 require_dependency 'hooks/view_layouts_base_html_head_hook'
 
 Redmine::Plugin.register :redmine_lightbox2 do
-  name 'Redmine Lightbox 2'
+  name 'Redmine Lightbox 2 (SEKAS)'
   author 'Paul Bininda'
   description 'This plugin lets you preview image, pdf, swf and msg attachments in a lightbox.'
   version '0.2.2'
