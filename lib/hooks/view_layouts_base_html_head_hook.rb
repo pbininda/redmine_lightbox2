@@ -10,7 +10,7 @@ module RedmineLightbox2
                                       context[:controller].is_a?(MessagesController) ||
                                       context[:controller].is_a?(NewsController))
           return stylesheet_link_tag("jquery.fancybox-2.1.5.css", :plugin => "redmine_lightbox2", :media => "screen") +
-			stylesheet_link_tag("lightbox.css", :plugin => "redmine_lightbox2", :media => "screen") +
+            stylesheet_link_tag("lightbox.css", :plugin => "redmine_lightbox2", :media => "screen") +
             javascript_include_tag('jquery.fancybox-2.1.5.pack.js', :plugin => 'redmine_lightbox2') +
             javascript_include_tag('lightbox.js', :plugin => 'redmine_lightbox2')
         else

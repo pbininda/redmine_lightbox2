@@ -11,7 +11,7 @@ div.thumbnails img {
   max-width: 150px;
 }
 
-a.pdf img, a.swf img, a.msg img {
+a.lightbox_preview img  {
   margin: 0 4px;
   width: 18px;
 }

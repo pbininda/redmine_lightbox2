@@ -1,36 +1,57 @@
 <div class="attachments">
 <div class="contextual">
-  <%= link_to image_tag('edit.png'),
-        container_attachments_edit_path(container),
-        :title => l(:label_edit_attachments) if options[:editable] %>
+  <%= link_to(l(:label_edit_attachments),
+              container_attachments_edit_path(container),
+              :title => l(:label_edit_attachments),
+              :class => 'icon-only icon-edit'
+             ) if options[:editable] %>
 </div>
 <% for attachment in attachments %>
-<p><%= link_to_attachment attachment, :class => 'icon icon-attachment', :download => true -%>
+  <p><%= link_to_attachment attachment, :class => 'icon icon-attachment', :download => true -%>
   <% if attachment.is_text? %>
-    <%= link_to image_tag('magnifier.png'),
-                :controller => 'attachments', :action => 'show',
-                :id => attachment, :filename => attachment.filename %>
+    <%= link_to l(:button_view),
+                { :controller => 'attachments', :action => 'show',
+                  :id => attachment, :filename => attachment.filename },
+                :class => 'icon-only icon-magnifier',
+                :title => l(:button_view) %>
   <% end %>
-  <%= h(" - #{attachment.description}") unless attachment.description.blank? %>
-  <span class="size">(<%= number_to_human_size attachment.filesize %>)</span>
+  <% if attachment.is_image? %>
+    <%= link_to l(:button_view),
+                { :controller => 'attachments', :action => 'download',
+                  :id => attachment, :filename => attachment.filename },
+                :class => 'icon-only icon-magnifier lightbox_preview ' + attachment.filename.split('.').last.downcase,
+                :rel => 'attachments', :title => "#{attachment.filename}#{ (' - ' + attachment.description) unless attachment.description.blank? }" %>
+  <% end %>
   <% if( attachment.filename =~ /.(pdf|swf)$/i ) %>
-    <%= link_to image_tag('preview.png', :plugin => :redmine_lightbox2), {:controller => 'attachments', :action => 'download_inline', :id => attachment, :filename => attachment.filename }, :class => $1, :rel => 'attachments', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }", :data  => {:fancybox_type => 'iframe'} %>
+    <%= link_to l(:button_view),
+                { :controller => 'attachments', :action => 'download_inline',
+                  :id => attachment, :filename => attachment.filename },
+                :class => 'icon-only icon-magnifier lightbox_preview ' + attachment.filename.split('.').last.downcase,
+                :rel => 'attachments', :title => "#{attachment.filename}#{ (' - ' + attachment.description) unless attachment.description.blank? }",
+                :data  => {:fancybox_type => 'iframe'} %>
   <% elsif( attachment.filename =~ /.(msg)$/i ) %>
-    <%= link_to image_tag('preview.png', :plugin => :redmine_lightbox2), {:controller => 'lightbox', :action => 'download_inline', :id => attachment.id}, :class => attachment.filename.split(".").last, :rel => 'attachments', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }", :data  => {:fancybox_type => 'iframe'} %>
-    <!--<%= link_to image_tag('magnifier.png'),                              {:controller => 'lightbox', :action => 'download_inline', :id => attachment.id}, :class => attachment.filename.split(".").last, :rel => 'attachments', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }"%>-->
-  <% end -%>
+    <%= link_to l(:button_view),
+                { :controller => 'lightbox', :action => 'download_inline',
+                  :id => attachment.id, :filename => attachment.filename },
+                :class => 'icon-only icon-magnifier lightbox_preview ' + attachment.filename.split('.').last.downcase,
+                :rel => 'attachments', :title => "#{attachment.filename}#{ (' - ' + attachment.description) unless attachment.description.blank? }",
+                :data  => {:fancybox_type => 'iframe'} %>
+  <% end %>
+  <%= attachment.description unless attachment.description.blank? %>
+  <span class="size">(<%= number_to_human_size attachment.filesize %>)</span>
   <% if options[:deletable] %>
-    <%= link_to image_tag('delete.png'), attachment_path(attachment),
-                                         :data => {:confirm => l(:text_are_you_sure)},
-                                         :method => :delete,
-                                         :class => 'delete',
-                                         :title => l(:button_delete) %>
+    <%= link_to l(:button_delete), attachment_path(attachment),
+                :data => {:confirm => l(:text_are_you_sure)},
+                :method => :delete,
+                :class => 'delete icon-only icon-del',
+                :title => l(:button_delete) %>
   <% end %>
   <% if options[:author] %>
-    <span class="author"><%= h(attachment.author) %>, <%= format_time(attachment.created_on) %></span>
+    <span class="author"><%= attachment.author %>, <%= format_time(attachment.created_on) %></span>
   <% end %>
   </p>
 <% end %>
+
 <% if defined?(thumbnails) && thumbnails %>
   <% images = attachments.select(&:thumbnailable?) %>
   <% if images.any? %>
@@ -39,8 +60,8 @@
       <div>
         <%=
           link_to image_tag(url_for(:controller => 'attachments', :action => 'thumbnail', :id => attachment)),
-          {:controller => 'attachments', :action => 'show', :id => attachment, :filename => attachment.filename},
-          :class => 'lightbox', :rel => 'attachments', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }", :data  => {:fancybox_type => 'iframe'}
+          {:controller => 'attachments', :action => 'download', :id => attachment, :filename => attachment.filename},
+          :class => 'lightbox', :rel => 'thumbnails', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }"
         %>
       </div>
     <% end %>
@@ -51,8 +72,8 @@
 	<% unless images.empty? %>
 	  <div class='images'>
 	    <% images.each do |attachment| %>
-	      <%= link_to image_tag(url_for({:controller => 'attachments', :action => 'show', :id => attachment, :filename => attachment.filename }), :width => '180'),
-	      {:controller => 'attachments', :action => 'show', :id => attachment, :filename => attachment.filename }, :class => 'lightbox', :rel => 'attachments', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }" %>
+	      <%= link_to image_tag(url_for({:controller => 'attachments', :action => 'download', :id => attachment, :filename => attachment.filename }), :width => '180'),
+	      {:controller => 'attachments', :action => 'download', :id => attachment, :filename => attachment.filename }, :class => 'lightbox', :rel => 'thumbnails', :title => "#{attachment.filename}#{ ('-' + attachment.description) unless attachment.description.blank? }" %>
 	    <% end -%>
 	  </div>
 	<% end -%>

@@ -11,7 +11,9 @@ This is a fork of zipme's [redmine_lightbox](https://github.com/zipme/redmine_li
 Compatibility
 -------------
 
-The latest version only supports redmine 3.0
+**The latest version on `master` branch supports Redmine 3.3 only!**
+
+A Redmine 3.0, 3.1, 3.2 compatible version can be found in the [redmine-3.0-3.2](https://github.com/paginagmbh/redmine_lightbox2/tree/redmine-3.0-3.2) branch.
 
 A Redmine 2.6.x compatible version can be found in the [redmine-2.6](https://github.com/paginagmbh/redmine_lightbox2/tree/redmine-2.6) branch.
 
@@ -39,15 +41,3 @@ License
 -------
 
 *redmine_lightbox2* plugin is developed under the [MIT License](LICENCE).
-
-
-Screenshots
------------
-
-![Screenshot 1](http://img.skitch.com/20110303-gj7p1qyb984s1yjn1takdfsid7.medium.jpg)
-
-![Screenshot 2](http://img.skitch.com/20110303-pufurh8rw42kin8h2jgjxu1nee.medium.jpg)
-
-![Screenshot 3](http://img.skitch.com/20110303-q2bqemgwccnfqdtt7shimguwm7.medium.jpg) 
-
-![Screenshot 4](http://img.skitch.com/20110401-c5fx2ccgb1bg64ydhfemurqqch.medium.jpg) 
